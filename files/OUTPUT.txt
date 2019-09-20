@@ -1,0 +1,84 @@
+service timestamps debug datetime localtime
+service timestamps log datetime localtime
+service password-encryption
+no service pad
+no service config
+!
+no service tcp-keepalives-in
+no service tcp-keepalives-out
+! 
+!
+hostname asdf
+!
+!
+!
+ip tacacs source-interface Vlanasdf
+!
+clock timezone CST -6 0
+clock summer-time CDT recurring
+!
+Ip ssh ver 2
+ip ssh time-out 60
+!
+no ip http server
+no ip http secure-server
+!
+logging trap warnings
+logging console critical
+logging buffered 102400
+logging source-interface Vlanasdf
+snmp-server community leread11 RO 5
+snmp-server trap-source Vlanasdf
+snmp-server location asdf
+snmp-server chassis-id %HOSTNAME%
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps tty
+snmp-server enable traps config
+snmp-server enable traps entity
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp ifmib ifindex persist
+!
+!
+!
+!
+!
+!
+banner login ^C
+*********************************************************************************
+                                NOTICE TO USERS
+THIS COMPUTER SYSTEM IS FOR AUTHORIZED USE ONLY.
+USERS (AUTHORIZED OR UNAUTHORIZED) HAVE NO EXPLICIT OR IMPLICIT EXPECTATION OF PRIVACY.
+ANY OR ALL USES OF THIS SYSTEM AND ALL FILES ON THIS SYSTEM MAY BE INTERCEPTED,
+MONITORED, RECORDED, COPIED, AUDITED, INSPECTED, AND DISCLOSED TO AUTHORIZED SITE, 
+COMPANY OFFICALS, AND LAW EMFORCEMENT PERSONNEL, AS WELL AS AUTHORIZED OFFICALS OF 
+OTHER AGENCIES, BOTH DOMESTIC AND FOREIGN. BY USING THIS SYSTEM, THE USER CONSENTS TO 
+SUCH INTERCEPTION, MONITORING, RECORDING, COPYING, AUDITING, INSPECTION, AND 
+DISCLOSURE AT THE DISCRETION OF AUTHORIZED SITE OR PERSONNEL.
+UNAUTHORIZED OR IMPROPER USE OF THE SYSTEM MAY RESULT IN ADMINISTRATIVE DISCIPLINARY
+ACTION, AS WELL AS CIVIL AND CRIMINAL PENALTIES IN ACCORDANCE WITH APPLICABLE LAWS. 
+BY CONTINUING TO USE THIS SYSTEM YOU HEREBY CONSENT TO THESE TERMS AND CONDITIONS 
+OF USE. LOG OFF IMMEDIATELY 
+IF YOU DO NOT AGREE TO THE CONDITIONS STATED IN THIS WARNING.
+*********************************************************************************
+^C
+!
+line con 0
+ exec-timeout 10 0
+ timeout login response 120
+ logging synchronous
+line vty 0 4
+ access-class 5 in
+ exec-timeout 10 0
+ timeout login response 120
+ privilege level 15
+ logging synchronous
+ length 0
+ transport input ssh
+line vty 5 15
+ access-class 5 in
+ exec-timeout 10 0
+ timeout login response 120
+ privilege level 15
+ logging synchronous
+ transport input ssh
+!
