@@ -33,4 +33,13 @@ class PortClass():
 		print ("Com Ports found")
 		for port in ports:
 			print ("           " + str(port))
+			
+
+	
+class CONFIG_INFO:
+	def __init__(self, hostname, vlan, ip_address, tag):
+		self.hostname = hostname
+		self.vlan = "Vlan" + vlan
+		self.ip_address = ip_address
+		self.tag = tag
 		

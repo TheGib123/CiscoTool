@@ -1,60 +1,10 @@
 import os
-import serial.tools.list_ports
+
+
 
 # desired port you want to connect to
 desiredPort = "Cisco".upper()
 
-# gets all com ports
-ports = serial.tools.list_ports.comports()
-
-# dictionary of ports with there number and description
-portDic = {}
-
-#puts all ports in use into portDic
-def PutPortsInDictionary():
-    for port in ports:
-        portDic[port.description.upper()] = port.device
-
-# gets the port number that matches desiredPort string
-def GetPortNumber():
-    portNum = -1
-    for desc, device in portDic.items():
-        if (desiredPort in desc): 
-            portNum = device
-            break
-    return portNum
-
-# opens putty to session with desired port
-def OpenPutty(comPort):
-    print (comPort + " - Connected")
-    os.system('putty -serial ' + comPort + '-m OUTPUT.txt')
-
-
-#def Start(ports):
-def ConnectToCissco():
-    PutPortsInDictionary()
-    comPort = GetPortNumber()
-    
-    if comPort != -1:
-        OpenPutty(comPort)
-    else:
-        print ("Com Port was not found with description " + desiredPort)
-        print
-        print ("Com Ports found")
-        for port in ports:
-            print ("           " + str(port))
-        print ()
-        print ("make sure cisco device is seen in device manager")
-	
-	
-	
-class CONFIG_INFO:
-	def __init__(self, hostname, vlan, ip_address, tag):
-		self.hostname = hostname
-		self.vlan = "Vlan" + vlan
-		self.ip_address = ip_address
-		self.tag = tag
-	
 
 	
 def GetInfo():
