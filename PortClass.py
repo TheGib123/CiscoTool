@@ -27,6 +27,11 @@ class PortClass():
 	def OpenPutty(self, comPort):
 		print (comPort + " - Connected")
 		os.system('putty -serial ' + comPort )
+		
+	# opens plink and runs file
+	def RunCommands(self, comPort):
+		print (comPort + " - Connected")
+		os.system('putty -serial ' + comPort )
 	
 	# prints ports
 	def PrintPorts(self, ports):
