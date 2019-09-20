@@ -1,10 +1,24 @@
 import os
+from PortClass import PortClass
+from PortClass import CONFIG_INFO
 
 
 
-# desired port you want to connect to
-desiredPort = "Cisco".upper()
-
+def ConnectToCissco():
+    os.system('cls')
+    PC = PortClass()
+    portList = PC.ReturnPortsInDictionary()
+    PC.PrintPorts(portList) 
+    print ("Type in the COM port manually")
+    comPort = input().upper()
+    if (comPort != ""):
+        port = PC.GetPortNumber(comPort, portList)
+        if (port != False):
+            PC.OpenPutty(port)
+            # make function to run commands
+        else:
+            print ("port " + comPort + " is not seen by the operating system")
+    
 
 	
 def GetInfo():
@@ -82,6 +96,6 @@ def Main():
 	
 	
 	
-    
+os.system('cls')   
 Main() 
 
